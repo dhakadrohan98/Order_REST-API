@@ -1,6 +1,5 @@
 package com.rohan.restapis.controller;
 
-import com.rohan.restapis.entities.AllOrderDetails;
 import com.rohan.restapis.entities.OrderHeaderNew;
 import com.rohan.restapis.entities.Person;
 import com.rohan.restapis.pojo.CustomObject;
