@@ -1,7 +1,16 @@
 package com.rohan.restapis.pojo;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
 
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
 public class CustomObject {
     private Orders[] orders;
+
+    public CustomObject(Orders[] orders) {
+        this.orders = orders;
+    }
 }

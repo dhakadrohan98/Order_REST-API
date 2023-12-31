@@ -12,4 +12,11 @@ public class CustomerDetails {
     private String firstName;
     private String middleName;
     private String lastName;
+
+    public CustomerDetails(String customerPartyId, String firstName, String middleName, String lastName) {
+        this.customerPartyId = customerPartyId;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+    }
 }
