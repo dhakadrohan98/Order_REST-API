@@ -3,7 +3,6 @@ package com.rohan.restapis.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rohan.restapis.entities.AllOrderDetails;
 import com.rohan.restapis.pojo.*;
-import com.rohan.restapis.repositories.AllOrderDetailsRepository;
 import com.rohan.restapis.repositories.OrderHeaderNewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,10 +25,19 @@ public class AllOrderDetailServiceImpl implements AllOrderDetailsService {
     private ObjectMapper objectMapper;
     @Override
     public CustomObject getAllOrders() {
-        String tempStr = this.orderHeaderNewRepository.findOrdersWithItemsAndParts();
-        System.out.println(tempStr);
+        String orderDetailsStr = this.orderHeaderNewRepository.findOrdersWithItemsAndParts();
+        System.out.println(orderDetailsStr);
+
         try {
-            String[] strArr = tempStr.split(",");
+            //converting orderDetailsStr string into string[] array: strArr.
+            String[] strArr = orderDetailsStr.split(",");
+            String customerPartyId = strArr[20];
+            //finding person details from person table
+            String personDetails = this.orderHeaderNewRepository.findPerson(customerPartyId);
+            //converting personDetails string into string[] array: personStrArr.
+            String[] personStrArr = personDetails.split(",");
+
+            System.out.println("Person details: "+ personDetails);
             Date date1=new SimpleDateFormat("yyyy-MM-dd").parse("1998-11-08");
             SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date11 = outputFormat.format(date1);
@@ -59,15 +67,15 @@ public class AllOrderDetailServiceImpl implements AllOrderDetailsService {
             String parentItemSeqId = strArr[17];
             String partName = strArr[18];
             String vendorPartyId = strArr[19];
-            String customerPartyId = strArr[20];
+            customerPartyId = strArr[20];
             Float  partyTotal = pL;
             String facilityId = strArr[22];
             String shipmentMethodId = strArr[23];
 
             //Hardcoded values;
-            String firstName = "Rohan Dhakad";
+            String firstName = personStrArr[0];
             String middleName = "";
-            String lastName = "Dhakad";
+            String lastName = personStrArr[1];
 
             //Making required response;
             //ItemDetails class's object;
